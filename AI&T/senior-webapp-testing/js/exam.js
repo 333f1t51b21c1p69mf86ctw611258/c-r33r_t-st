@@ -3,7 +3,6 @@ var obj01 = new autoComplete({
     minChars: 0,
     source: function (term, suggest) {
         term = term.toLowerCase();
-        // var choices = [['Australia', 'au'], ['Austria', 'at'], ['Brasil', 'br'], ['Bulgaria', 'bg'], ['Canada', 'ca'], ['China', 'cn'], ['Czech Republic', 'cz'], ['Denmark', 'dk'], ['Finland', 'fi'], ['France', 'fr'], ['Germany', 'de'], ['Hungary', 'hu'], ['India', 'in'], ['Italy', 'it'], ['Japan', 'ja'], ['Netherlands', 'nl'], ['Norway', 'no'], ['Portugal', 'pt'], ['Romania', 'ro'], ['Russia', 'ru'], ['Spain', 'es'], ['Swiss', 'ch'], ['Turkey', 'tr'], ['USA', 'us']];
         var choices = TABLE_DATA;
         var suggestions = [];
         for (i = 0; i < choices.length; i++) {
@@ -21,6 +20,6 @@ var obj01 = new autoComplete({
     },
     onSelect: function (e, term, item) {
         console.log('Item "' + item.getAttribute('data-langname') + ' (' + item.getAttribute('data-lang') + ')" selected by ' + (e.type == 'keydown' ? 'pressing enter' : 'mouse click') + '.');
-        document.getElementById('autocomplete01').value = item.getAttribute('data-langname') + ' (' + item.getAttribute('data-lang') + ')';
+        document.getElementById('autocomplete01').value = item.getAttribute('data-langname'); // + ' (' + item.getAttribute('data-lang') + ')';
     }
 });
