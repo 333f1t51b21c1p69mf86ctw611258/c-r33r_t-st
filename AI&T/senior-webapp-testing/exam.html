@@ -3,24 +3,42 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1">
   <title>javascript coding exam</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="js/autocomplete/auto-complete.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/styles.css">
   <script src="js/autocomplete/auto-complete.js"></script>
 </head>
 
 <body>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-3">Complete It</h1>
+      <p class="lead">UIT Team JavaScript Testing.</p>
+    </div>
+  </div>
   <div class="container">
-    <h2>UIT Team JavaScript Testing</h2>
-    <form class="form-horizontal" role="form" onsubmit="return false;">
-      <div class="form-group">
-        <label>Input service name: </label>
-        <input type="text" name="apps" value="" id="autocomplete01" autofocus placeholder="Choose the service..." style="width:100%;max-width:600px;outline:0" />
+    <form id="form01" class="form-horizontal" role="form" onsubmit="return false;">
+      <div class="form-group row">
+        <label for="autocomplete01" class="col-sm-2 col-form-label">Input service name:</label>
+        <div class="col-sm-10">
+          <input type="text" name="apps" id="autocomplete01" class="form-control" autofocus placeholder="Choose the service..." />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Input history:</label>
+        <div class="col-sm-10">
+          <ul class="block-list" id="inputhistory"></ul>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+          <a class="btn btn-warning" id="cleanInputHistory">Clean input history</a>
+        </div>
       </div>
     </form>
-
     <div class="contents">
     </div>
   </div>

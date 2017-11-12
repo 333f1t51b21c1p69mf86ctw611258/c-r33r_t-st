@@ -1,0 +1,21 @@
+body {
+  font-size: 16px; }
+
+.item-image {
+  width: 20px;
+  height: 20px; }
+
+.block-list {
+  border-top: 1px solid #ccc;
+  list-style: none;
+  padding-left: 0; }
+  .block-list > li {
+    border-bottom: 1px solid #ccc;
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0;
+    padding: 0.35em; }
+    .block-list > li .block-list__link {
+      display: block;
+      padding: 0.35em;
+      margin: -0.35em; }

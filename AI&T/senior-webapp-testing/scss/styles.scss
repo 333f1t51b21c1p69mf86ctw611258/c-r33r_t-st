@@ -1,0 +1,30 @@
+$base-font-size: 16px;
+body {
+    font-size: $base-font-size;
+}
+
+.item-image {
+    width: 20px;
+    height: 20px;
+}
+
+@mixin block-list($link-selector: 'a', $border-color: #ccc, $border-width: 1px, $item-padding: 0.35em) {
+    border-top: $border-width solid $border-color;
+    list-style: none;
+    padding-left: 0;
+    >li {
+        border-bottom: $border-width solid $border-color;
+        list-style-image: none;
+        list-style-type: none;
+        margin-left: 0;
+        padding: $item-padding;
+        #{$link-selector} {
+            display: block;
+            padding: $item-padding;
+            margin: -$item-padding;
+        }
+    }
+} // Standard usage
+.block-list {
+    @include block-list('.block-list__link');
+}

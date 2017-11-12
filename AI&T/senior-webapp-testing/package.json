@@ -1,0 +1,20 @@
+{
+  "name": "senior-webapp-testing",
+  "version": "1.0.0",
+  "description": "Tran Huu Nguyen's practices",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "node-sass scss/ -o css/"
+  },
+  "keywords": [
+    "pure javascript",
+    "input text autocomplete"
+  ],
+  "author": "Tran Huu Nguyen",
+  "license": "ISC",
+  "dependencies": {}
+}
