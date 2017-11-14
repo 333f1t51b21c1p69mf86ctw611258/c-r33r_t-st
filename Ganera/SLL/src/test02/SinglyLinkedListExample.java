@@ -147,6 +147,7 @@ public class SinglyLinkedListExample {
 
         example.swap2Nodes(node1, node2);
 
+        System.out.println("After swapping two nodes:");
         example.traverse();
 
         System.out.println(example.getHead());
@@ -154,11 +155,11 @@ public class SinglyLinkedListExample {
 //        example.showNodeBefore();
 
         example.sortAscending();
-
+        System.out.println("After sorting:");
         example.traverse();
 
         example.reverse();
-
+        System.out.println("After reversing:");
         example.traverse();
 
         System.out.println(example.getHead());
