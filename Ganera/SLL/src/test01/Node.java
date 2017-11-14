@@ -1,6 +1,9 @@
 package test01;
 
-public class Node<T> implements Comparable<T> {
+import javax.security.auth.DestroyFailedException;
+import javax.security.auth.Destroyable;
+
+public class Node<T> implements Comparable<T>, Destroyable {
 
     private T value;
     private Node<T> nextRef;
@@ -28,5 +31,11 @@ public class Node<T> implements Comparable<T> {
         } else {
             return 1;
         }
+    }
+
+    @Override
+    public void destroy() throws DestroyFailedException {
+        this.value = null;
+        this.nextRef = null;
     }
 }
