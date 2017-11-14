@@ -8,6 +8,10 @@ public class SinglyLinkedListExample {
         return head;
     }
 
+    public Node getTail() {
+        return tail;
+    }
+
     public Node add(int value) {
         Node newNode = new Node();
         newNode.setValue(value);
@@ -27,7 +31,7 @@ public class SinglyLinkedListExample {
         Node tmpNode = head;
 
         while (tmpNode != null) {
-            System.out.print(String.format("%d ", tmpNode.getValue()));
+            System.out.print(String.format("%5d", tmpNode.getValue()));
             tmpNode = tmpNode.getNextRef();
         }
         System.out.println();
@@ -71,6 +75,10 @@ public class SinglyLinkedListExample {
         if (iNode == head) {
             head = jNode;
         }
+
+        if (jNode == tail) {
+            tail = iNode;
+        }
     }
 
     public void sortAscending() {
@@ -105,10 +113,31 @@ public class SinglyLinkedListExample {
         }
     }
 
+    public void reverse() {
+        Node currentNode = head;
+        head = tail;
+        tail = currentNode;
+
+        Node newNextRef = null;
+
+        while (currentNode != null) {
+            Node newBeforeNode = currentNode.getNextRef();
+            currentNode.setNextRef(newNextRef);
+
+            newNextRef = currentNode;
+
+            currentNode = newBeforeNode;
+        }
+    }
+
     public static void main(String args[]) {
         SinglyLinkedListExample example = new SinglyLinkedListExample();
         Node node1 = example.add(10);
         Node node2 = example.add(14);
+        example.add(2);
+        example.add(5);
+        example.add(1);
+        example.add(99);
         example.add(2);
         example.add(5);
         example.add(1);
@@ -127,5 +156,12 @@ public class SinglyLinkedListExample {
         example.sortAscending();
 
         example.traverse();
+
+        example.reverse();
+
+        example.traverse();
+
+        System.out.println(example.getHead());
+        System.out.println(example.getTail());
     }
 }
