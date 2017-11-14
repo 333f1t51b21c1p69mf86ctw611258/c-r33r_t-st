@@ -2,14 +2,9 @@ package test02;
 
 public class SinglyLinkedListExample {
     private Node head = null;
-    private Node tail = null;
 
     public Node getHead() {
         return head;
-    }
-
-    public Node getTail() {
-        return tail;
     }
 
     public Node add(int value) {
@@ -18,10 +13,13 @@ public class SinglyLinkedListExample {
 
         if (head == null) {
             head = newNode;
-            tail = head;
         } else {
-            tail.setNextRef(newNode);
-            tail = newNode;
+            Node tmpNode = head;
+            while (tmpNode.getNextRef() != null) {
+                tmpNode = tmpNode.getNextRef();
+            }
+
+            tmpNode.setNextRef(newNode);
         }
 
         return newNode;
@@ -75,10 +73,6 @@ public class SinglyLinkedListExample {
         if (iNode == head) {
             head = jNode;
         }
-
-        if (jNode == tail) {
-            tail = iNode;
-        }
     }
 
     public void sortAscending() {
@@ -103,6 +97,42 @@ public class SinglyLinkedListExample {
         }
     }
 
+    public void removeNode(Node node) {
+        if (node == head) {
+            head = node.getNextRef();
+        } else {
+            Node tmpNode = head.getNextRef();
+            Node previousNode = head;
+
+            while (tmpNode != null) {
+                if (node == tmpNode) {
+                    previousNode.setNextRef(node.getNextRef());
+                    break;
+                }
+            }
+        }
+    }
+
+    public void removeDuplicatedNode() {
+        if (head.getNextRef() != null) {
+            Node tmpNode = head.getNextRef();
+            int previousValue = head.getValue();
+            Node previousNode = head;
+
+            while (tmpNode != null) {
+                if (tmpNode.getValue() == previousValue) {
+                    previousNode.setNextRef(tmpNode.getNextRef());
+                } else {
+                    previousNode = tmpNode;
+                    previousValue = tmpNode.getValue();
+                }
+
+                tmpNode = tmpNode.getNextRef();
+            }
+        }
+
+    }
+
     public void showNodeBefore() {
         Node tmpNode = head;
 
@@ -115,18 +145,19 @@ public class SinglyLinkedListExample {
 
     public void reverse() {
         Node currentNode = head;
-        head = tail;
-        tail = currentNode;
 
         Node newNextRef = null;
 
+        Node newPreviousNode = null;
         while (currentNode != null) {
-            Node newBeforeNode = currentNode.getNextRef();
+            head = currentNode;
+
+            newPreviousNode = currentNode.getNextRef();
             currentNode.setNextRef(newNextRef);
 
             newNextRef = currentNode;
 
-            currentNode = newBeforeNode;
+            currentNode = newPreviousNode;
         }
     }
 
@@ -158,11 +189,14 @@ public class SinglyLinkedListExample {
         System.out.println("After sorting:");
         example.traverse();
 
+        example.removeDuplicatedNode();
+        System.out.println("After removing duplicated nodes:");
+        example.traverse();
+
         example.reverse();
         System.out.println("After reversing:");
         example.traverse();
 
         System.out.println(example.getHead());
-        System.out.println(example.getTail());
     }
 }

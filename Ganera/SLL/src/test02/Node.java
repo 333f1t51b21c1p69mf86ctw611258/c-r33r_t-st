@@ -3,7 +3,7 @@ package test02;
 import javax.security.auth.DestroyFailedException;
 import javax.security.auth.Destroyable;
 
-public class Node implements Destroyable {
+public class Node {
     private int value;
     private Node nextRef = null;
 
@@ -24,11 +24,6 @@ public class Node implements Destroyable {
             throw new IllegalArgumentException();
 
         this.nextRef = nextRef;
-    }
-
-    @Override
-    public void destroy() throws DestroyFailedException {
-        this.nextRef = null;
     }
 
     @Override
