@@ -1,5 +1,7 @@
 package test02;
 
+import java.util.Random;
+
 public class SinglyLinkedListExample {
     private Node head = null;
 
@@ -9,28 +11,33 @@ public class SinglyLinkedListExample {
 
     public Node add(int value) {
         Node newNode = new Node();
-        newNode.setValue(value);
+        newNode.setData(value);
 
         if (head == null) {
             head = newNode;
         } else {
-            Node tmpNode = head;
-            while (tmpNode.getNextRef() != null) {
-                tmpNode = tmpNode.getNextRef();
-            }
+            Node tail = getTail();
 
-            tmpNode.setNextRef(newNode);
+            tail.setNextNode(newNode);
         }
 
         return newNode;
+    }
+
+    private Node getTail() {
+        Node tmpNode = head;
+        while (tmpNode.getNextNode() != null) {
+            tmpNode = tmpNode.getNextNode();
+        }
+        return tmpNode;
     }
 
     public void traverse() {
         Node tmpNode = head;
 
         while (tmpNode != null) {
-            System.out.print(String.format("%5d", tmpNode.getValue()));
-            tmpNode = tmpNode.getNextRef();
+            System.out.print(String.format("%5d", tmpNode.getData()));
+            tmpNode = tmpNode.getNextNode();
         }
         System.out.println();
     }
@@ -39,11 +46,11 @@ public class SinglyLinkedListExample {
         Node tmpNode = head;
 
         while (tmpNode != null) {
-            if (tmpNode.getNextRef() == node) {
+            if (tmpNode.getNextNode() == node) {
                 return tmpNode;
             }
 
-            tmpNode = tmpNode.getNextRef();
+            tmpNode = tmpNode.getNextNode();
         }
 
         return null;
@@ -53,22 +60,22 @@ public class SinglyLinkedListExample {
         Node iBeforeNode = findBefore(iNode);
         Node jBeforeNode = findBefore(jNode);
 
-        Node iAfterNode = iNode.getNextRef();
-        Node jAfterNode = jNode.getNextRef();
+        Node iAfterNode = iNode.getNextNode();
+        Node jAfterNode = jNode.getNextNode();
 
         if (iBeforeNode != null) {
-            iBeforeNode.setNextRef(jNode);
+            iBeforeNode.setNextNode(jNode);
         }
         if (iAfterNode != jNode) {
-            jNode.setNextRef(iAfterNode);
+            jNode.setNextNode(iAfterNode);
         } else { // Exception when swapping two items stand next to each other
-            jNode.setNextRef(iNode);
+            jNode.setNextNode(iNode);
         }
 
         if (jBeforeNode != iNode) { // Exception when swapping two items stand next to each other
-            jBeforeNode.setNextRef(iNode);
+            jBeforeNode.setNextNode(iNode);
         }
-        iNode.setNextRef(jAfterNode);
+        iNode.setNextNode(jAfterNode);
 
         if (iNode == head) {
             head = jNode;
@@ -79,10 +86,10 @@ public class SinglyLinkedListExample {
         Node iNode = head, jNode, tmpNode;
 
         while (iNode != null) {
-            jNode = iNode.getNextRef();
+            jNode = iNode.getNextNode();
 
             while (jNode != null) {
-                if (iNode.getValue() > jNode.getValue()) {
+                if (iNode.getData() > jNode.getData()) {
                     swap2Nodes(iNode, jNode);
 
                     tmpNode = iNode;
@@ -90,23 +97,81 @@ public class SinglyLinkedListExample {
                     jNode = tmpNode;
                 }
 
-                jNode = jNode.getNextRef();
+                jNode = jNode.getNextNode();
             }
 
-            iNode = iNode.getNextRef();
+            iNode = iNode.getNextNode();
         }
+    }
+
+    public void sortAscendingInsertion() {
+        Node tmpNode;
+        int length = getListLength();
+
+        for (int i = 1; i < length; i++) {
+            tmpNode = getNodeByPosition(i);
+            int j = i;
+
+            while (j > 0 && getNodeByPosition(j - 1).getData() > tmpNode.getData()) {
+                swap2Nodes(getNodeByPosition(j - 1), getNodeByPosition(j));
+                j--;
+            }
+        }
+    }
+
+    public int getListLength() {
+        Node tmpNode = head;
+        int i = 0;
+        while (tmpNode != null) {
+            i++;
+            tmpNode = tmpNode.getNextNode();
+        }
+
+        return i;
+    }
+
+    public Node getNodeByPosition(int position) {
+        Node tmpNode = head;
+        int tmpIndex = 0;
+
+        while (tmpNode != null) {
+            if (tmpIndex == position) {
+                return tmpNode;
+            }
+
+            tmpNode = tmpNode.getNextNode();
+            tmpIndex++;
+        }
+
+        return null;
+    }
+
+    public int getPositionByNode(Node node) {
+        Node tmpNode = head;
+        int position = 0;
+
+        while (tmpNode != null) {
+            if (tmpNode == node) {
+                return position;
+            }
+
+            position++;
+            tmpNode = tmpNode.getNextNode();
+        }
+
+        throw new IllegalArgumentException();
     }
 
     public void removeNode(Node node) {
         if (node == head) {
-            head = node.getNextRef();
+            head = node.getNextNode();
         } else {
-            Node tmpNode = head.getNextRef();
+            Node tmpNode = head.getNextNode();
             Node previousNode = head;
 
             while (tmpNode != null) {
                 if (node == tmpNode) {
-                    previousNode.setNextRef(node.getNextRef());
+                    previousNode.setNextNode(node.getNextNode());
                     break;
                 }
             }
@@ -114,20 +179,20 @@ public class SinglyLinkedListExample {
     }
 
     public void removeDuplicatedNode() {
-        if (head.getNextRef() != null) {
-            Node tmpNode = head.getNextRef();
-            int previousValue = head.getValue();
+        if (head.getNextNode() != null) {
+            Node tmpNode = head.getNextNode();
+            int previousValue = head.getData();
             Node previousNode = head;
 
             while (tmpNode != null) {
-                if (tmpNode.getValue() == previousValue) {
-                    previousNode.setNextRef(tmpNode.getNextRef());
+                if (tmpNode.getData() == previousValue) {
+                    previousNode.setNextNode(tmpNode.getNextNode());
                 } else {
                     previousNode = tmpNode;
-                    previousValue = tmpNode.getValue();
+                    previousValue = tmpNode.getData();
                 }
 
-                tmpNode = tmpNode.getNextRef();
+                tmpNode = tmpNode.getNextNode();
             }
         }
 
@@ -139,7 +204,7 @@ public class SinglyLinkedListExample {
         while (tmpNode != null) {
             System.out.println(findBefore(tmpNode));
 
-            tmpNode = tmpNode.getNextRef();
+            tmpNode = tmpNode.getNextNode();
         }
     }
 
@@ -152,12 +217,44 @@ public class SinglyLinkedListExample {
         while (currentNode != null) {
             head = currentNode;
 
-            newPreviousNode = currentNode.getNextRef();
-            currentNode.setNextRef(newNextRef);
+            newPreviousNode = currentNode.getNextNode();
+            currentNode.setNextNode(newNextRef);
 
             newNextRef = currentNode;
 
             currentNode = newPreviousNode;
+        }
+    }
+
+    private int getRandomNumber() {
+        Random rand = new Random();
+
+        int  n = rand.nextInt(50) + 1;
+
+        return n;
+    }
+
+    public void disorderList() {
+        Node iNode = head;
+        Node jNode;
+        Node tmpNode;
+
+        while (iNode != null) {
+            jNode = iNode.getNextNode();
+
+            while (jNode != null) {
+                if (getRandomNumber() % 2 == 0) {
+                    swap2Nodes(iNode, jNode);
+
+                    tmpNode = iNode;
+                    iNode = jNode;
+                    jNode = tmpNode;
+                }
+
+                jNode = jNode.getNextNode();
+            }
+
+            iNode = iNode.getNextNode();
         }
     }
 
@@ -198,5 +295,19 @@ public class SinglyLinkedListExample {
         example.traverse();
 
         System.out.println(example.getHead());
+
+        System.out.println("List length: " + example.getListLength());
+
+        System.out.println("Item: " + example.getNodeByPosition(1));
+
+        System.out.println("Position: " + example.getPositionByNode(node1));
+
+        example.disorderList();
+        System.out.println("After disorder the list:");
+        example.traverse();
+
+        example.sortAscendingInsertion();
+        System.out.println("After sorting with Insertion algorithm:");
+        example.traverse();
     }
 }

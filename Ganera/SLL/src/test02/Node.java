@@ -1,33 +1,30 @@
 package test02;
 
-import javax.security.auth.DestroyFailedException;
-import javax.security.auth.Destroyable;
-
 public class Node {
-    private int value;
-    private Node nextRef = null;
+    private int data;
+    private Node nextNode = null;
 
-    public int getValue() {
-        return value;
+    public int getData() {
+        return data;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setData(int data) {
+        this.data = data;
     }
 
-    public Node getNextRef() {
-        return nextRef;
+    public Node getNextNode() {
+        return nextNode;
     }
 
-    public void setNextRef(Node nextRef) {
-        if (this == nextRef)
+    public void setNextNode(Node nextNode) {
+        if (this == nextNode)
             throw new IllegalArgumentException();
 
-        this.nextRef = nextRef;
+        this.nextNode = nextNode;
     }
 
     @Override
     public String toString() {
-        return String.format("%d", this.value);
+        return String.format("%d", this.data);
     }
 }
